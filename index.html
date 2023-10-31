@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Hut Online Ordering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #ff5733;
+        }
+        form {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Pizza Hut Online Ordering</h1>
+
+    <div>
+        <h2>Order Your Pizza</h2>
+        <form action="order.php" method="post">
+            <label for="pizza-type">Select Pizza Type:</label>
+            <select name="pizza-type" id="pizza-type">
+                <option value="pepperoni">Pepperoni</option>
+                <option value="margherita">Margherita</option>
+                <option value="vegetarian">Vegetarian</option>
+                <!-- Add more options as needed -->
+            </select>
+            <br>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity" id="quantity" min="1" value="1">
+            <br>
+            <input type="submit" value="Place Order">
+        </form>
+    </div>
+
+    <div>
+        <h2>Check Order Status</h2>
+        <form action="check_status.php" method="post">
+            <label for="order-number">Enter Order Number:</label>
+            <input type="text" name="order-number" id="order-number">
+            <br>
+            <input type="submit" value="Check Status">
+        </form>
+    </div>
+</body>
+</html>
