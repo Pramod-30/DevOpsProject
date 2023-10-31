@@ -31,6 +31,11 @@
             border: none;
             cursor: pointer;
         }
+        #total-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -38,31 +43,68 @@
 
     <div>
         <h2>Order Your Pizza</h2>
-        <form action="order.php" method="post">
+        <form id="order-form">
             <label for="pizza-type">Select Pizza Type:</label>
             <select name="pizza-type" id="pizza-type">
-                <option value="pepperoni">Pepperoni</option>
-                <option value="margherita">Margherita</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="non-veg">Non Vegetarian</option>
+                <option value="pepperoni" data-price="12.99">Pepperoni - $12.99</option>
+                <option value="margherita" data-price="10.99">Margherita - $10.99</option>
+                <option value="vegetarian" data-price="11.99">Vegetarian - $11.99</option>
                 <!-- Add more options as needed -->
             </select>
             <br>
             <label for="quantity">Quantity:</label>
             <input type="number" name="quantity" id="quantity" min="1" value="1">
             <br>
+            <p id="total-amount">Amount to be Paid: $0.00</p>
             <input type="submit" value="Place Order">
         </form>
     </div>
 
     <div>
         <h2>Check Order Status</h2>
-        <form action="check_status.php" method="post">
+        <form id="status-form">
             <label for="order-number">Enter Order Number:</label>
             <input type="text" name="order-number" id="order-number">
             <br>
             <input type="submit" value="Check Status">
         </form>
+        <p id="order-details">Order details will appear here</p>
     </div>
+
+    <script>
+        const orderForm = document.getElementById('order-form');
+        const statusForm = document.getElementById('status-form');
+        const totalAmountDisplay = document.getElementById('total-amount');
+        const orderDetailsDisplay = document.getElementById('order-details');
+
+        orderForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const pizzaTypeSelect = document.getElementById('pizza-type');
+            const selectedOption = pizzaTypeSelect.options[pizzaTypeSelect.selectedIndex];
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const pizzaPrice = parseFloat(selectedOption.getAttribute('data-price'));
+
+            const totalAmount = pizzaPrice * quantity;
+
+            totalAmountDisplay.textContent = `Amount to be Paid: $${totalAmount.toFixed(2)}`;
+        });
+
+        statusForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const orderNumber = document.getElementById('order-number').value;
+            // You would typically make an AJAX request here to a server that provides order details based on the order number.
+            // For this example, we'll simulate a response with dummy data.
+            const dummyOrderData = {
+                orderNumber: orderNumber,
+                pizzaType: 'Pepperoni',
+                quantity: 2,
+                totalAmount: 25.98,
+            };
+
+            orderDetailsDisplay.textContent = `Order Number: ${dummyOrderData.orderNumber}, Pizza: ${dummyOrderData.pizzaType}, Quantity: ${dummyOrderData.quantity}, Total Amount: $${dummyOrderData.totalAmount.toFixed(2)}`;
+        });
+    </script>
 </body>
 </html>
